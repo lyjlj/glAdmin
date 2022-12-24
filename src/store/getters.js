@@ -1,3 +1,4 @@
+//定义getters中的数据,相当于computed
 const getters = {
   sidebar: state => state.app.sidebar,
   size: state => state.app.size,

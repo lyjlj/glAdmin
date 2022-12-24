@@ -17,7 +17,7 @@ import router from './router'
 import './icons' // icon
 import './permission' // permission control
 import './utils/error-log' // error log
-
+// 引入全局过滤器
 import * as filters from './filters' // global filters
 
 /**
@@ -28,6 +28,8 @@ import * as filters from './filters' // global filters
  * Currently MockJs will be used in the production environment,
  * please remove it before going online ! ! !
  */
+// 判断系统环境
+console.log(process)
 if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
@@ -42,7 +44,7 @@ Vue.use(Element, {
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
-
+// 阻止vue在启动时生成生产提示
 Vue.config.productionTip = false
 
 new Vue({

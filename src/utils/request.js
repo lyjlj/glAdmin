@@ -4,17 +4,23 @@ import store from '@/store'
 import { getToken } from '@/utils/auth'
 
 // create an axios instance
+// 创建新的axios实例
+
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+
+  // baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: '',
+  // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 30000 // request timeout
 })
 
+console.log(123, process.env.VUE_APP_BASE_API)
 // request interceptor
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-
+    console.log(store)
     if (store.getters.token) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
@@ -46,7 +52,7 @@ service.interceptors.response.use(
     const res = response.data
 
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 20000) {
+    if (res.code !== 200) {
       Message({
         message: res.message || 'Error',
         type: 'error',

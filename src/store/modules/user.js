@@ -23,10 +23,27 @@ const mutations = {
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
   },
-  SET_ROLES: (state, roles) => {
-    state.roles = roles
-  }
+  // SET_ROLES: (state, roles) => {
+  //   state.roles = roles
+  // }
 }
+// login 方法 then 方法中resolve() catch方法返回reject()
+// const actions1 = {
+//   login({ commit }, userInfo) {
+//     const { username, password } = userInfo
+//     return new Promise((resolve, reject) => {
+//       login({ username: username.trim(), password: password }).then(response => {
+//         const { data } = response
+//         console.log("请求数据",data)
+//         commit('SET_TOKEN', data.token)
+//         setToken(data.token)
+//         resolve()
+//       }).catch(error => {
+//         reject(error)
+//       })
+//     })
+//   }
+// }
 
 const actions = {
   // user login
@@ -35,8 +52,10 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
+        // commit方法的使用
         commit('SET_TOKEN', data.token)
         setToken(data.token)
+        //将数据返回
         resolve()
       }).catch(error => {
         reject(error)
@@ -54,17 +73,17 @@ const actions = {
           reject('Verification failed, please Login again.')
         }
 
-        const { roles, name, avatar, introduction } = data
+        // const {  name, avatar, introduction } = data
 
         // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
+        // if (!roles || roles.length <= 0) {
+        //   reject('getInfo: roles must be a non-null array!')
+        // }
 
-        commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        commit('SET_INTRODUCTION', introduction)
+        // commit('SET_ROLES', roles)
+        // commit('SET_NAME', name)
+        // commit('SET_AVATAR', avatar)
+        // commit('SET_INTRODUCTION', introduction)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -77,7 +96,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         commit('SET_TOKEN', '')
-        commit('SET_ROLES', [])
+        // commit('SET_ROLES', [])
         removeToken()
         resetRouter()
 
@@ -96,7 +115,7 @@ const actions = {
   resetToken({ commit }) {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
-      commit('SET_ROLES', [])
+      // commit('SET_ROLES', [])
       removeToken()
       resolve()
     })

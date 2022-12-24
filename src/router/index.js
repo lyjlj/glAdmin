@@ -38,6 +38,7 @@ import nestedRouter from './modules/nested'
  * a base page that does not have permission requirements
  * all roles can be accessed
  */
+// 常态路由,不分配权限
 export const constantRoutes = [
   {
     path: '/redirect',
@@ -97,7 +98,7 @@ export const constantRoutes = [
     ]
   },
   {
-    path: 'selfdetail',
+    path: '/selfproject/selfdetail',
     component: () => import('@/views/selfproject/selfdetail'),
     name: 'selfdetail',
     meta: { title: '项目详情' },
@@ -201,6 +202,7 @@ export const constantRoutes = [
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
  */
+// 动态路由，根据角色分配权限
 export const asyncRoutes = [
   // {
   //   path: '/permission',

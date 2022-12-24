@@ -36,7 +36,36 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    //跨域问题解决
+    proxy:{
+      "/glps/api/":{
+        target: "http://ssl.zhuanyegou.com/glps/api/",
+        changeOrigin: true,
+        ws: true,
+        secure: false,  
+        pathRewrite: {"^/glps/api/": ""}
+      },
+    //跨域问题解决
+    // proxy:{
+    //   "/glps/api":{
+    //     target:"http://ssl.zhuanyegou.com/glps/api",
+    //     changeOrigin:true,
+    //     ws:true,
+    //     secure:false,
+    //     pathRewrite:{"^/glps/api/":""}
+    //   }
+    // }
+      // [process.env.VUE_APP_BASE_API_TX]: {
+      //   target: "https://apis.map.qq.com",    // 请求的第三方接口地址
+      //   ws: true,
+      //   changeOrigin: true,                   // 请求跨域时，需配置此项
+      //   pathRewrite: {                        // 路径重写,替换target中的请求地址
+      //     ["^"+process.env.VUE_APP_BASE_API_TX]: "",
+      //   },
+      // },
+ 
+    },
+    // before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
